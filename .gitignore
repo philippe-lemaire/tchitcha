@@ -1,4 +1,4 @@
 .env
 .python-version
-tchitcha/__pycache__/
-*/__pycache__/
+tchitcha/__pycache__/*
+*/__pycache__/*
