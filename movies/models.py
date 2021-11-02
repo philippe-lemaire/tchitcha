@@ -19,7 +19,7 @@ class Movie(models.Model):
     rating = models.CharField(max_length=1, choices=ratings, default="E")
 
     def __str__(self):
-        return f"{self.title} ({self.year})"
+        return f"{self.title} ({self.release_year})"
 
 
 class Room(models.Model):
@@ -38,4 +38,4 @@ class Showing(models.Model):
     tickets_sold = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.movie} le {self.date} à {self.time}."
+        return f"{self.movie} le {self.date} à {self.time} dans la salle {self.room}."
