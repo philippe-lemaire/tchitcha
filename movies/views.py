@@ -8,8 +8,6 @@ from .models import Movie, Showing
 
 
 class IndexView(generic.ListView):
-    context_object_name = "future_showing_list"
-
     def get_queryset(self):
         return Showing.objects.order_by("date").filter(date__gte=datetime.date.today())
 
