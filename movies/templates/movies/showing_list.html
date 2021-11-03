@@ -1,5 +1,5 @@
-{% if showing_list %}
 <h1>Prochaines séances</h1>
+{% if showing_list %}
 <ul>
     {% for showing in showing_list %}
     <li><a href="{% url 'movies:detail' showing.movie.id %}">{{ showing.movie.title }}</a> le {{showing.date}} à
