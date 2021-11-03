@@ -7,10 +7,19 @@ from .models import Movie, Room, Showing
 class MovieAdmin(admin.ModelAdmin):
     search_fields = ["title", "release_year"]
     list_display = ["title", "rating", "genre", "release_year"]
+    list_filter = ["genre", "rating"]
 
 
 class ShowingAdmin(admin.ModelAdmin):
-    list_display = ["movie", "date", "time", "room", "tickets_sold"]
+    list_display = [
+        "is_showing_in_the_future",
+        "date",
+        "time",
+        "room",
+        "movie",
+        "tickets_sold",
+    ]
+    list_filter = ["date"]
 
 
 admin.site.register(Movie, MovieAdmin)

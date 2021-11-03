@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib import admin
+from django.utils import timezone
 import datetime
 
 # Create your models here.
@@ -31,6 +33,7 @@ class Room(models.Model):
 
 
 class Showing(models.Model):
+
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     date = models.DateField("projection date")
@@ -39,3 +42,12 @@ class Showing(models.Model):
 
     def __str__(self):
         return f"{self.movie} le {self.date} à {self.time} dans la salle {self.room}."
+
+    @admin.display(
+        ordering="date",
+        description="Future showing?",
+        boolean=True,
+    )
+    def is_showing_in_the_future(self):
+        today = timezone.now().date()
+        return self.date >= today
