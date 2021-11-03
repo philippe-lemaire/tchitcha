@@ -55,3 +55,10 @@ class MoviesIndexTests(TestCase):
         response = self.client.get(reverse("movies:index"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Aucune projection n’est planifiée.")
+
+    def test_future_showing_displayed(self):
+        date = today
+        create_showing(date=date)
+        response = self.client.get(reverse("movies:index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "test_movie")
