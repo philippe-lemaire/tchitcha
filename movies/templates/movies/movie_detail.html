@@ -6,11 +6,15 @@
 
 <img src="{{movie.cover_url}}" width="160" height="200" />
 
+<p>Un film réalisé par {{movie.director}}.</p>
+
 <p>Avec : {{movie.cast}}</p>
 
 <p>Description : {{movie.description}}</p>
 
 <p>Public : {{movie.rating}}</p>
+
+<p>Pays : {{movie.country.name}}</p>
 
 <p>Genre : {{movie.genre}}</p>
 
@@ -18,7 +22,7 @@
 <h2>Prochaines séances pour {{movie.title|title}}</h2>
 <ul>
     {% for showing in showing_list %}
-    <li>{{ showing.date }} à {{ showing.time}}</li>
+    <li>{{ showing.date }} à {{ showing.time}} en {{showing.language}}.</li>
     {% endfor %}
 </ul>
 {% endif %}
