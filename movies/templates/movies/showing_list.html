@@ -9,7 +9,7 @@
     <li><a href="{% url 'movies:detail' showing.movie.id %}">{{ showing.movie.title }}</a> le {{showing.date|date:"l"}}
         {{showing.date}}
         à
-        {{showing.time}}
+        {{showing.time}} dans la salle {{showing.room}}.
     </li>
     {% endfor %}
 </ul>
