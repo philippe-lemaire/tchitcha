@@ -2,7 +2,8 @@
 <h1>Prochaines séances</h1>
 <ul>
     {% for showing in future_showing_list %}
-    <li><a href="/movies/{{ showing.movie.id }}/">{{ showing.movie.title }}</a> le {{showing.date}} à {{showing.time}}
+    <li><a href="{% url 'movies:detail' showing.movie.id %}">{{ showing.movie.title }}</a> le {{showing.date}} à
+        {{showing.time}}
     </li>
     {% endfor %}
 </ul>
