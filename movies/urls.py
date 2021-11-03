@@ -1,10 +1,10 @@
 from django.urls import path
-from django.views.generic import DetailView
 from . import views
 
 app_name = "movies"
 
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
-    path("<int:pk>/", views.DetailView.as_view(), name="detail"),
+    path("film/<int:pk>/", views.MovieDetailView.as_view(), name="detail"),
+    path("<int:pk>/", views.ShowingDetailView.as_view(), name="showing_detail"),
 ]
