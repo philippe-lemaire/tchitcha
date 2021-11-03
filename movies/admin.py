@@ -12,11 +12,11 @@ class MovieAdmin(admin.ModelAdmin):
 
 class ShowingAdmin(admin.ModelAdmin):
     list_display = [
+        "movie",
         "is_showing_in_the_future",
         "date",
         "time",
         "room",
-        "movie",
         "tickets_sold",
     ]
     list_filter = ["date"]

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from django.utils import timezone
+from django_countries.fields import CountryField
 import datetime
 
 # Create your models here.
@@ -12,6 +13,8 @@ class Movie(models.Model):
     genre = models.CharField(max_length=50)
     cast = models.TextField()
     release_year = models.CharField(max_length=4, default=datetime.date.today().year)
+    director = models.CharField(max_length=200)
+    country = CountryField(blank_label="Select country", default="FR")
     description = models.TextField()
     ratings = [
         ("E", "Everyone"),
@@ -38,6 +41,8 @@ class Showing(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     date = models.DateField("projection date")
     time = models.TimeField("projection time")
+    languages = [("VO", "VOST"), ("VF", "VF")]
+    language = models.CharField(max_length=2, choices=languages, default="VF")
     tickets_sold = models.IntegerField(default=0)
 
     def __str__(self):
