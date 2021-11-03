@@ -10,7 +10,3 @@ from .models import Movie, Showing
 class IndexView(generic.ListView):
     def get_queryset(self):
         return Showing.objects.order_by("date").filter(date__gte=datetime.date.today())
-
-
-class DetailView(generic.DetailView):
-    model = Movie
