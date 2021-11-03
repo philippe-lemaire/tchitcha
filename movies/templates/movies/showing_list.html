@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Les séances pour {{movie.title}}{% endblock %}
+{% block content %}
+
 <h1>Prochaines séances</h1>
 {% if showing_list %}
 <ul>
@@ -10,3 +14,4 @@
 {% else %}
 <p>Aucune projection n’est planifiée.</p>
 {% endif %}
+{% endblock %}

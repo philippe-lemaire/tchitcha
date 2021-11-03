@@ -1,4 +1,7 @@
-<h1>{{ movie.title }} ({{movie.release_year}})</h1>
+{% extends "base.html" %}
+{% block title %}Les séances pour {{movie.title}}{% endblock %}
+{% block content %}
+<h1>{{ movie.title|title }} ({{movie.release_year}})</h1>
 
 
 <img src="{{movie.cover_url}}" width="160" height="200" />
@@ -12,10 +15,11 @@
 <p>Genre : {{movie.genre}}</p>
 
 {% if showing_list %}
-<h2>Prochaines séances pour {{movie.title}}</h2>
+<h2>Prochaines séances pour {{movie.title|title}}</h2>
 <ul>
     {% for showing in showing_list %}
     <li>{{ showing.date }} à {{ showing.time}}</li>
     {% endfor %}
 </ul>
 {% endif %}
+{% endblock %}
