@@ -6,7 +6,9 @@
 {% if showing_list %}
 <ul>
     {% for showing in showing_list %}
-    <li><a href="{% url 'movies:detail' showing.movie.id %}">{{ showing.movie.title }}</a> le {{showing.date}} à
+    <li><a href="{% url 'movies:detail' showing.movie.id %}">{{ showing.movie.title }}</a> le {{showing.date|date:"l"}}
+        {{showing.date}}
+        à
         {{showing.time}}
     </li>
     {% endfor %}
