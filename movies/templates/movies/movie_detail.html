@@ -12,7 +12,7 @@
 <p>Genre : {{movie.genre}}</p>
 
 {% if showing_list %}
-<h2>Séances pour {{movie.title}}</h2>
+<h2>Prochaines séances pour {{movie.title}}</h2>
 <ul>
     {% for showing in showing_list %}
     <li>{{ showing.date }} à {{ showing.time}}</li>
