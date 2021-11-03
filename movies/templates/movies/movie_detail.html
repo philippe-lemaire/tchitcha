@@ -1,4 +1,4 @@
-<h1>{{ movie.title }}({{movie.release_year}})</h1>
+<h1>{{ movie.title }} ({{movie.release_year}})</h1>
 
 
 <img src="{{movie.cover_url}}" width="160" height="200" />
@@ -10,3 +10,12 @@
 <p>Public : {{movie.rating}}</p>
 
 <p>Genre : {{movie.genre}}</p>
+
+{% if showing_list %}
+<h2>Séances pour {{movie.title}}</h2>
+<ul>
+    {% for showing in showing_list %}
+    <li>{{ showing.date }} à {{ showing.time}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
