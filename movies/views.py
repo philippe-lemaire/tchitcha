@@ -49,11 +49,12 @@ def buy_tickets(request, showing_id):
         # create the form and populate it
         form = BuyTicketsForm(request.POST)
         if form.is_valid():
+            next = HttpResponseRedirect(reverse("movies:index"))
+            if form.cleaned_data.get("num_tickets") > max_amount:
+                return next
             showing.tickets_sold += form.cleaned_data.get("num_tickets")
             showing.save()
-            return HttpResponseRedirect(
-                reverse("movies:showing_detail", kwargs={"pk": showing_id})
-            )
+            return next
     else:
         form = BuyTicketsForm()
     return render(

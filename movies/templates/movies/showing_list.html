@@ -1,19 +1,29 @@
 {% extends "base.html" %}
-{% block title %}Les séances pour {{movie.title}}{% endblock %}
+{% block title %}Prochaines séances{% endblock %}
 {% block content %}
 
 <h1>Prochaines séances</h1>
 {% if showing_list %}
-<ul>
+<table class="table table-hover table-striped">
+    <tr>
+        <th>Film</th>
+        <th>Date</th>
+        <th>Horaire</th>
+        <th>Langue</th>
+        <th>Places vendues</th>
+        <th>Billeterie</th>
+    </tr>
     {% for showing in showing_list %}
-    <li><a href="{% url 'movies:detail' showing.movie.id %}">{{ showing.movie.title }}</a> le {{showing.date|date:"l"}}
-        {{showing.date}}
-        à
-        {{showing.time}} dans la salle {{showing.room}}. <a href="{% url 'movies:showing_detail' showing.id %}">la
-            séance</a>. <a href="{% url 'movies:buy_tickets' showing.id %}">Acheter des billets</a>
-    </li>
+    <tr>
+        <td><a href="{% url 'movies:detail' showing.movie.id %}">{{ showing.movie.title }}</a></td>
+        <td>{{showing.date|date:"l d F Y"}} </td>
+        <td>{{showing.time}}</td>
+        <td>{{showing.language}}</td>
+        <td>{{showing.tickets_sold}} / {{showing.room.capacity}}</td>
+        <td><a href="{% url 'movies:buy_tickets' showing.id %}">Acheter des billets</a></td>
+    </tr>
     {% endfor %}
-</ul>
+</table>
 {% else %}
 <p>Aucune projection n’est planifiée.</p>
 {% endif %}

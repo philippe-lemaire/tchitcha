@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Séance du {{showing.date}} à {{showing.time}}: {{ showing.movie.title|title }}
+{% block title %}Séance du {{showing.date|naturalday}} à {{showing.time}}: {{ showing.movie.title|title }}
 ({{showing.movie.release_year}}){% endblock %}
 {% block content %}
-<h1>Séance du {{showing.date}} à {{showing.time}}: {{ showing.movie.title|title }} ({{showing.movie.release_year}})</h1>
+
+<h1>Séance du {{showing.date}} à {{showing.time}}: {{ showing.movie.title|title }}
+    ({{showing.movie.release_year}})</h1>
 
 
 <p>Séance en {{showing.language}}</p>

@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{showing}}{% endblock %}
 {% block content %}
-<h1>{{showing}}</h1>
+
+<h1>{{showing.movie}} le {{showing.date}}</h1>
 
 <form action="{% url 'movies:buy_tickets' showing.id %}" method="post">
     {% csrf_token %}
