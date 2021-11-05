@@ -4,6 +4,7 @@
 
 <h1>Prochaines séances</h1>
 {% if showing_list %}
+<br>
 <table class="table table-hover table-striped">
     <tr>
         <th>Film</th>
@@ -20,7 +21,13 @@
         <td>{{showing.time}}</td>
         <td>{{showing.language}}</td>
         <td>{{showing.tickets_sold}} / {{showing.room.capacity}}</td>
-        <td><a href="{% url 'movies:buy_tickets' showing.id %}">Acheter des billets</a></td>
+
+
+        {% if showing.tickets_sold < showing.room.capacity %} <td><a
+                href="{% url 'movies:buy_tickets' showing.id %}">Acheter des billets</a></td>
+            {% else %}
+            <td></td>
+            {% endif %}
     </tr>
     {% endfor %}
 </table>
