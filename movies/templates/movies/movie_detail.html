@@ -22,7 +22,8 @@
 <h2>Prochaines séances pour {{movie.title|title}}</h2>
 <ul>
     {% for showing in showing_list %}
-    <li>{{ showing.date }} à {{ showing.time}} en {{showing.language}}.</li>
+    <li>{{ showing.date }} à {{ showing.time}} en {{showing.language}} <a
+            href="{% url 'movies:buy_tickets' showing.id %}">Acheter des billets</a>.</li>
     {% endfor %}
 </ul>
 {% endif %}
