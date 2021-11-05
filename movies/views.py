@@ -1,11 +1,12 @@
 import datetime
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse
 
 from .models import Movie, Showing
+from .forms import BuyTicketsForm
 
 # Create your views here.
 
@@ -42,4 +43,22 @@ class ShowingDetailView(generic.DetailView):
 
 def buy_tickets(request, showing_id):
     showing = get_object_or_404(Showing, pk=showing_id)
-    return HttpResponse(f"Vous voulez acheter des billets pour la séance {showing}")
+    max_amount = showing.room.capacity - showing.tickets_sold
+
+    if request.method == "POST":
+        # create the form and populate it
+        form = BuyTicketsForm(request.POST)
+        if form.is_valid():
+            showing.tickets_sold += form.cleaned_data.get("num_tickets")
+            showing.save()
+            return HttpResponseRedirect(
+                reverse("movies:showing_detail", kwargs={"pk": showing_id})
+            )
+    else:
+        form = BuyTicketsForm()
+    return render(
+        request,
+        "movies/buy_tickets.html",
+        {"form": form, "showing": showing, "max_amount": max_amount},
+    )
+    # return HttpResponse(f"Vous voulez acheter des billets pour la séance {showing}")

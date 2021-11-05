@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{showing}}{% endblock %}
+{% block content %}
+<h1>{{showing}}</h1>
+
+<form action="{% url 'movies:buy_tickets' showing.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Valider">
+</form>
+
+{% endblock %}
