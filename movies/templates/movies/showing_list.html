@@ -10,7 +10,7 @@
         {{showing.date}}
         à
         {{showing.time}} dans la salle {{showing.room}}. <a href="{% url 'movies:showing_detail' showing.id %}">la
-            séance</a>
+            séance</a>. <a href="{% url 'movies:buy_tickets' showing.id %}">Acheter des billets</a>
     </li>
     {% endfor %}
 </ul>
