@@ -1,7 +1,10 @@
 import datetime
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
+from django.urls import reverse
+
 from .models import Movie, Showing
 
 # Create your views here.
@@ -35,3 +38,8 @@ class ShowingDetailView(generic.DetailView):
         showing = context.get("showing")
         context["available_seats"] = showing.room.capacity - showing.tickets_sold
         return context
+
+
+def buy_tickets(request, showing_id):
+    showing = get_object_or_404(Showing, pk=showing_id)
+    return HttpResponse(f"Vous voulez acheter des billets pour la séance {showing}")

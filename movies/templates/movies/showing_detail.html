@@ -8,5 +8,6 @@
 <p>Séance en {{showing.language}}</p>
 <p>Places libres : {{available_seats}}</p>
 
+<a href="{% url 'movies:buy_tickets' showing.id %}">Acheter des billets</a>
 
 {% endblock %}
