@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "movies.apps.MoviesConfig",
+    "blog.apps.BlogConfig",
     "django_countries",
     "django.contrib.admin",
     "django.contrib.auth",
