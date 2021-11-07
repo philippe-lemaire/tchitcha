@@ -6,11 +6,6 @@ from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 
 # Create your models here.
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
 
 
 class Tag(models.Model):
@@ -23,7 +18,6 @@ class Tag(models.Model):
 
 
 class Article(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     slug = models.SlugField()
     title = models.CharField(max_length=200)
     content = MarkdownxField()
