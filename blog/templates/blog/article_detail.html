@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{article.title}}{% endblock %}
+{% block title %}{{article.title|title}}{% endblock %}
 {% block content %}
 <h1>{{ article.title|title }}</h1>
 
@@ -10,7 +10,7 @@
 
 🏷️
 {% for tag in article.tags.all %}
-<a class="badge rounded-pill bg-success text-light" href="#">{{tag.name}}</a>
+<a class="badge rounded-pill bg-success text-light" href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}</a>
 {% endfor %}
 
 {% endblock %}
