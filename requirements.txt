@@ -3,3 +3,5 @@ django-dotenv
 psycopg2-binary
 django-countries
 pyuca
+django-markdownx
+gunicorn

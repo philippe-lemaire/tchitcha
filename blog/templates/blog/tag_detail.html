@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{article.title}}{% endblock %}
+{% block content %}
+<h1>{{ tag.name|title }}</h1>
+
+
+<ul>
+    {% for article in tag.articles.all %}
+    <li><a
+            href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title|title}}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
