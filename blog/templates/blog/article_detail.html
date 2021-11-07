@@ -4,9 +4,13 @@
 <h1>{{ article.title|title }}</h1>
 
 
-{{article.content}}
+<p>{{article.formatted_markdown|safe}}</p>
 
 <p>Publié le : {{article.pub_date|date}}.</p>
-<p>Catégorie : {{article.category.name}}.</p>
+
+🏷️
+{% for tag in article.tags.all %}
+<a class="badge rounded-pill bg-success text-light" href="#">{{tag.name}}</a>
+{% endfor %}
 
 {% endblock %}

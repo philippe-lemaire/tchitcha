@@ -9,10 +9,13 @@
                 {% for article in article_list %}
                 <h2><a href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title}}</a>
                 </h2>
-                {{article.content}}
+                <p>{{article.summary}}</p>
 
                 <p>Publié le : {{article.pub_date|date}}.</p>
-                <p>Catégorie : {{article.category.name}}.</p>
+                🏷️
+                {% for tag in article.tags.all %}
+                <a class="badge rounded-pill bg-success text-light" href="#">{{tag.name}}</a>
+                {% endfor %}
                 {% endfor %}
         </div>
         <div class="col-sm-3">
