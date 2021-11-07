@@ -17,3 +17,17 @@ class IndexView(generic.ListView):
 
 class ArticleDetailView(generic.DetailView):
     model = Article
+
+
+class ArticleYearArchiveView(generic.dates.YearArchiveView):
+    queryset = Article.objects.all()
+    date_field = "pub_date"
+    make_object_list = True
+    allow_future = False
+
+
+class ArticleMonthArchiveView(generic.dates.MonthArchiveView):
+    queryset = Article.objects.all()
+    date_field = "pub_date"
+    make_object_list = True
+    allow_future = False

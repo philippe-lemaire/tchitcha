@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Actualités{% endblock %}
+{% block content %}
+<h1>Archives : {{ month|date:"F Y" }}</h1>
+
+<ul>
+    {% for article in object_list %}
+    <li>
+        {{ article.pub_date|date}}: <a
+            href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">
+            {{article.title}}</a>
+
+    </li>
+    {% endfor %}
+</ul>
+
+<p>
+    {% if previous_month %}
+    Mois précédent : <a href="{% url 'blog:month_archive' previous_month.year previous_month.month %}">
+        {{previous_month|date:"F Y"}}</a>
+    {% endif %}
+    {% if next_month %}
+    Mois suivant : <a href="{% url 'blog:month_archive' next_month.year next_month.month %}">
+        {{next_month|date:"F Y"}}</a>
+    {% endif %}
+</p>
+
+{% endblock%}

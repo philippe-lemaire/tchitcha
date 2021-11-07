@@ -4,16 +4,41 @@
 
 <h1>Les Actualités</h1>
 {% if article_list %}
-{% for article in article_list %}
-<h2><a href="{% url 'blog:detail' article.id %}">{{article.title}}</a></h2>
-{{article.content}}
+<div class="row">
+        <div class="col-sm-9">
+                {% for article in article_list %}
+                <h2><a href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title}}</a>
+                </h2>
+                {{article.content}}
 
-<p>Publié le : {{article.pub_date}}.</p>
-<p>Catégorie : {{article.category.name}}.</p>
-{% endfor %}
+                <p>Publié le : {{article.pub_date|date}}.</p>
+                <p>Catégorie : {{article.category.name}}.</p>
+                {% endfor %}
+        </div>
+        <div class="col-sm-3">
+                <h2>Archives</h2>
+                {% regroup article_list by pub_date.year as year_list %}
+
+                <ul>
+                        {% for year in year_list %}
+                        <li><a href="{% url 'blog:year_archive' year.grouper %}">{{ year.grouper }}</a>
+                                {% regroup year.list by pub_date.month as month_list %}
+                                <ul>
+                                        {% for month in month_list %}
+                                        <li><a href="{% url 'blog:month_archive' year.grouper month.grouper %}">
+                                                        {{month.list.0.pub_date|date:'F' }}
+                                                        ({{month.list|length }})</a></li>
+                                        {% endfor %}
+                                </ul>
+                        </li>
+                        {% endfor %}
+                </ul>
+
+
+        </div>
+</div>
 
 {% else %}
 <p>Aucun article.</p>
 {% endif %}
-
 {% endblock %}
