@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Actualités{% endblock %}
 {% block content %}
-<h1>Archives : les articles de {{ year|date:"Y" }}</h1>
+<h1>Archives : {{ year|date:"Y" }}</h1>
 
 {% for date in date_list %}
-<h2>{{ date|date:"F Y"|title }}</h2>
+<h2><a href="{% url 'blog:month_archive' date.year date.month %}">{{ date|date:"F Y"|title }}</a></h2>
 
 <div>
 

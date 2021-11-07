@@ -5,17 +5,17 @@
 <h1>Les Actualités</h1>
 {% if article_list %}
 {% for article in article_list %}
-<h2><a
-        href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title}}</a>
+<h2><a href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title}}</a>
 </h2>
 {{article.content}}
 
-<p>Publié le : {{article.pub_date}}.</p>
+<p>Publié le : {{article.pub_date|date}}.</p>
 <p>Catégorie : {{article.category.name}}.</p>
 {% endfor %}
 
 {% else %}
 <p>Aucun article.</p>
 {% endif %}
+
 
 {% endblock %}
