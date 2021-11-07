@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Actualités{% endblock %}
+{% block content %}
+<h1>Archives : les articles de {{ year|date:"Y" }}</h1>
+
+{% for date in date_list %}
+<h2>{{ date|date:"F Y"|title }}</h2>
+
+<div>
+
+    {% for article in object_list %}
+    {% if article.pub_date.month == date.month %}
+    <p>
+        <a
+            href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title}}</a>
+        </h2>
+        - {{ article.pub_date|date:"j F Y" }}
+    </p>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endfor %}
+{% endblock%}

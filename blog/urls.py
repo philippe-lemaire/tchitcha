@@ -10,4 +10,10 @@ urlpatterns = [
         views.ArticleDetailView.as_view(),
         name="detail",
     ),
+    path("<int:year>/", views.ArticleYearArchiveView.as_view(), name="year_archive"),
+    path(
+        "<int:year>/<int:month>/",
+        views.ArticleMonthArchiveView.as_view(month_format="%m"),
+        name="month_archive",
+    ),
 ]
