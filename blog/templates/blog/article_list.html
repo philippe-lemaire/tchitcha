@@ -7,19 +7,21 @@
 <div class="row">
         <div class="col-sm-9">
                 {% for article in article_list %}
-                <h2><a href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title}}</a>
+                <h2><a href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title|title}}</a>
                 </h2>
                 <p>{{article.summary}}</p>
 
                 <p>Publié le : {{article.pub_date|date}}.</p>
                 🏷️
                 {% for tag in article.tags.all %}
-                <a class="badge rounded-pill bg-success text-light" href="#">{{tag.name}}</a>
+                <a class="badge rounded-pill bg-success text-light"
+                        href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}</a>
                 {% endfor %}
                 {% endfor %}
         </div>
         <div class="col-sm-3">
                 <h2>Archives</h2>
+                <h3>Par dates</h3>
                 {% regroup article_list by pub_date.year as year_list %}
 
                 <ul>
@@ -34,6 +36,16 @@
                                         {% endfor %}
                                 </ul>
                         </li>
+                        {% endfor %}
+                </ul>
+
+                <h3>Par étiquettes</h3>
+                <ul>
+                        {% for tag in tags %}
+                        <li><a href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}
+                                        ({{tag.articles.all|length}})</a>
+                        </li>
+
                         {% endfor %}
                 </ul>
 
