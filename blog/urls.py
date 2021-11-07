@@ -16,4 +16,5 @@ urlpatterns = [
         views.ArticleMonthArchiveView.as_view(month_format="%m"),
         name="month_archive",
     ),
+    path("tag/<slug:slug>/", views.TagDetailView.as_view(), name="tag_detail"),
 ]
