@@ -37,12 +37,21 @@ def buy_tickets(request, showing_id):
         # create the form and populate it
         form = BuyTicketsForm(request.POST)
         if form.is_valid():
-            next = HttpResponseRedirect(reverse("movies:index"))
-            if form.cleaned_data.get("num_tickets") > max_amount:
-                return next
-            showing.tickets_sold += form.cleaned_data.get("num_tickets")
+            asked_tickets = form.cleaned_data.get("num_tickets")
+            if asked_tickets > max_amount:
+                # add the error in the form
+                form.errors["num_tickets"] = [
+                    f"Pas assez de places disponibles pour acheter {asked_tickets} tickets. Il reste {max_amount} places."
+                ]
+                return render(
+                    request,
+                    "movies/buy_tickets.html",
+                    {"form": form, "showing": showing, "max_amount": max_amount},
+                )
+
+            showing.tickets_sold += asked_tickets
             showing.save()
-            return next
+            return HttpResponseRedirect(reverse("movies:index"))
     else:
         form = BuyTicketsForm()
     return render(
