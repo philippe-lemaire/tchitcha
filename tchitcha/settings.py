@@ -86,12 +86,12 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.getenv("DBHOST"),
+        "ENGINE": os.getenv("ENGINE", "django.db.backends.sqlite3"),
+        "HOST": os.getenv("DBHOST", ""),
         "PORT": os.getenv("DBPORT", ""),
-        "NAME": os.getenv("DBNAME"),
-        "USER": os.getenv("DBUSER"),
-        "PASSWORD": os.getenv("DBPWD"),
+        "NAME": os.getenv("DBNAME", BASE_DIR / "db.sqlite3"),
+        "USER": os.getenv("DBUSER", ""),
+        "PASSWORD": os.getenv("DBPWD", ""),
         "TEST": {
             "NAME": "testdb",
         },
