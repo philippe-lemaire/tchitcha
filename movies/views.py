@@ -13,7 +13,9 @@ from .forms import BuyTicketsForm
 
 class IndexView(generic.ListView):
     def get_queryset(self):
-        return Showing.objects.order_by("date").filter(date__gte=datetime.date.today())
+        return Showing.objects.order_by("movie", "date", "time").filter(
+            date__gte=datetime.date.today()
+        )
 
 
 class MovieDetailView(generic.DetailView):
