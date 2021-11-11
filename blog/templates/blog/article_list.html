@@ -4,52 +4,58 @@
 
 <h1>Les Actualités</h1>
 {% if article_list %}
-<div class="row">
-        <div class="col-sm-9">
-                {% for article in article_list %}
-                <h2><a href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title|title}}</a>
-                </h2>
-                <p>{{article.summary}}</p>
+<div class="row gx-5">
+        <div class="col-8">
+                <div class="card-body p-3 border">
+                        {% for article in article_list %}
+                        <h2 class="blog-title"><a
+                                        href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title|title}}</a>
+                        </h2>
+                        <p>{{article.summary}}</p>
 
-                <p>Publié le : {{article.pub_date|date}}.</p>
-                🏷️
-                {% for tag in article.tags.all %}
-                <a class="badge rounded-pill bg-primary text-light"
-                        href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}</a>
-                {% endfor %}
-                {% endfor %}
+                        <p>Publié le : {{article.pub_date|date}}.</p>
+                        🏷️
+                        {% for tag in article.tags.all %}
+                        <a class="badge rounded-pill bg-primary text-light"
+                                href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}</a>
+                        {% endfor %}<br><br>
+                        {% endfor %}
+
+                </div>
         </div>
-        <div class="col-sm-3">
-                <h2>Archives</h2>
-                <h3>Par dates</h3>
-                {% regroup article_list by pub_date.year as year_list %}
+        <div class="col-4">
+                <div class="card-body p-3 border">
+                        <h2>Archives</h2>
+                        <h3>Par dates</h3>
+                        {% regroup article_list by pub_date.year as year_list %}
 
-                <ul>
-                        {% for year in year_list %}
-                        <li><a href="{% url 'blog:year_archive' year.grouper %}">{{ year.grouper }}</a>
-                                {% regroup year.list by pub_date.month as month_list %}
-                                <ul>
-                                        {% for month in month_list %}
-                                        <li><a href="{% url 'blog:month_archive' year.grouper month.grouper %}">
-                                                        {{month.list.0.pub_date|date:'F' }}
-                                                        ({{month.list|length }})</a></li>
-                                        {% endfor %}
-                                </ul>
-                        </li>
-                        {% endfor %}
-                </ul>
+                        <ul>
+                                {% for year in year_list %}
+                                <li><a href="{% url 'blog:year_archive' year.grouper %}">{{ year.grouper }}</a>
+                                        {% regroup year.list by pub_date.month as month_list %}
+                                        <ul>
+                                                {% for month in month_list %}
+                                                <li><a href="{% url 'blog:month_archive' year.grouper month.grouper %}">
+                                                                {{month.list.0.pub_date|date:'F' }}
+                                                                ({{month.list|length }})</a></li>
+                                                {% endfor %}
+                                        </ul>
+                                </li>
+                                {% endfor %}
+                        </ul>
 
-                <h3>Par étiquettes</h3>
-                <ul>
-                        {% for tag in tags %}
-                        <li><a href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}
-                                        ({{tag.articles.all|length}})</a>
-                        </li>
+                        <h3>Par étiquettes</h3>
+                        <ul>
+                                {% for tag in tags %}
+                                <li><a href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}
+                                                ({{tag.articles.all|length}})</a>
+                                </li>
 
-                        {% endfor %}
-                </ul>
+                                {% endfor %}
+                        </ul>
 
 
+                </div>
         </div>
 </div>
 
