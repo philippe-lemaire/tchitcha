@@ -21,6 +21,8 @@ class IndexView(generic.ListView):
         context["tags"] = Tag.objects.all()
         return context
 
+    paginate_by = 5
+
 
 class ArticleDetailView(generic.DetailView):
     model = Article
