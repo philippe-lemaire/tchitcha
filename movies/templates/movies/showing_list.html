@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load movies_extras %}
+
 {% block title %}Prochaines séances{% endblock %}
 {% block content %}
 
@@ -23,11 +25,15 @@
                                     <p>Réalisé par <strong>{{movie.grouper.director}}</strong></p>
                                     <p>Avec {{movie.grouper.cast}}</p>
                                     <p>Genre : <strong>{{movie.grouper.genre}}</strong></p>
-                                    <p>Résumé : {{movie.grouper.description|linebreaksbr}}</p>
+                                    <p>Durée : {{movie.grouper.duration|duration}}</p>
+                                    <p>Pays : {{movie.grouper.country.name}}</p>
+                                    <p><strong>Résumé :</strong> {{movie.grouper.description|linebreaksbr}}</p>
+                                    {% if movie.grouper.trailer_url %}
+                                    <p><a target="blank" href="{{movie.grouper.trailer_url}}">Voir le trailer</a></p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
-
                         <br>
 
                         <ul>

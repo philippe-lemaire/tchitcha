@@ -16,12 +16,15 @@ class Movie(models.Model):
     director = models.CharField(max_length=200)
     country = CountryField(blank_label="Select country", default="FR")
     description = models.TextField()
+    d = datetime.timedelta(days=0, hours=1, minutes=30, seconds=0)
+    duration = models.DurationField(default=d)
     ratings = [
         ("E", "Everyone"),
         ("T", "Teens"),
         ("A", "Adults only"),
     ]
     rating = models.CharField(max_length=1, choices=ratings, default="E")
+    trailer_url = models.URLField(blank=True)
 
     def __str__(self):
         return f"{self.title} ({self.release_year})"
