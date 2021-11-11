@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load movies_extras %}
+
 {% block title %}Prochaines séances{% endblock %}
 {% block content %}
 
@@ -23,6 +25,7 @@
                                     <p>Réalisé par <strong>{{movie.grouper.director}}</strong></p>
                                     <p>Avec {{movie.grouper.cast}}</p>
                                     <p>Genre : <strong>{{movie.grouper.genre}}</strong></p>
+                                    <p>Durée : {{movie.grouper.duration|duration}}</p>
                                     <p>Résumé : {{movie.grouper.description|linebreaksbr}}</p>
                                 </div>
                             </div>
