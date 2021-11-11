@@ -5,9 +5,10 @@
 
 
 <ul>
-    {% for article in tag.articles.all %}
+    {% for article in tag.articles.all reversed %}
     <li><a
             href="{% url 'blog:detail' article.pub_date.year article.pub_date.month article.pub_date.day article.slug %}">{{article.title|title}}</a>
+        - {{ article.pub_date|date:"j F Y" }}
     </li>
     {% endfor %}
 </ul>
