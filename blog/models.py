@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.db import models
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
+from django.contrib import admin
 
 # Create your models here.
 
@@ -33,3 +34,11 @@ class Article(models.Model):
     @property
     def formatted_markdown(self):
         return markdownify(self.content)
+
+    @admin.display(
+        ordering="pub_date",
+        description="Published?",
+        boolean=True,
+    )
+    def is_published(self):
+        return self.published
