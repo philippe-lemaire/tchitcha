@@ -14,7 +14,7 @@
                 <p>Publié le : {{article.pub_date|date}}.</p>
                 🏷️
                 {% for tag in article.tags.all %}
-                <a class="badge rounded-pill bg-success text-light"
+                <a class="badge rounded-pill bg-primary text-light"
                         href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}</a>
                 {% endfor %}
                 {% endfor %}
