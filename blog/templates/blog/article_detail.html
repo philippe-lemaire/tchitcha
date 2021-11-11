@@ -10,7 +10,7 @@
 
 🏷️
 {% for tag in article.tags.all %}
-<a class="badge rounded-pill bg-success text-light" href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}</a>
+<a class="badge rounded-pill bg-primary text-light" href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}</a>
 {% endfor %}
 
 {% endblock %}
