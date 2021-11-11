@@ -3,39 +3,80 @@
 {% block content %}
 
 <h1>Prochaines séances</h1>
-{% if showing_list %}
-{% regroup showing_list by movie as movie_list %}
-{% for movie in movie_list %}
-<div>
-    <h2>{{movie.grouper.title}}</h2>
-    <div class="container">
+<div class="container">
+    <div class="row gx-5">
         <div class="row align-items-start">
-            <div class="col-2">
-                <img src="{{movie.grouper.cover_url}}" width=100px />
-            </div>
+
             <div class="col-8">
-                <p>Réalisé par <strong>{{movie.grouper.director}}</strong></p>
-                <p>Avec {{movie.grouper.cast}}</p>
-                <p>Genre : <strong>{{movie.grouper.genre}}</strong></p>
+                <div class="card-body p-3 border">
+                    {% if showing_list %}
+                    {% regroup showing_list by movie as movie_list %}
+                    {% for movie in movie_list %}
+                    <div>
+                        <h2>{{movie.grouper.title}}</h2>
+                        <div class="container">
+                            <div class="row align-items-start">
+                                <div class="col-5">
+                                    <img src="{{movie.grouper.cover_url}}" width="250px" />
+                                </div>
+                                <div class="col-7">
+                                    <p>Réalisé par <strong>{{movie.grouper.director}}</strong></p>
+                                    <p>Avec {{movie.grouper.cast}}</p>
+                                    <p>Genre : <strong>{{movie.grouper.genre}}</strong></p>
+                                    <p>Résumé : {{movie.grouper.description|linebreaksbr}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <ul>
+                            {% for showing in movie.list %}
+                            <li>{{showing.language}} : <a href="{% url 'movies:buy_tickets' showing.id %}">
+                                    {{showing.date|date:"l d F Y"}} à {{showing.time}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <hr>
+                    </div>
+                    {% endfor %}
+
+                    {% else %}
+                    <p>Aucune projection n’est planifiée.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card-body p-3 border">
+                    <h2>Tarifs Cinéma</h2>
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Plein tarif</td>
+                            <td>6,5€</td>
+                        </tr>
+                        <tr>
+                            <td>Tarif réduit (étudiants, + 65 ans)</td>
+                            <td>5,5€</td>
+                        </tr>
+                        <tr>
+                            <td>Adhérents</td>
+                            <td>5€</td>
+                        </tr>
+                        <tr>
+                            <td>Chômeurs, RSA, handicapés, enfants</td>
+                            <td>4€</td>
+                        </tr>
+                        <tr>
+                            <td>Carnet 10 tickets valable 1 an</td>
+                            <td>55€</td>
+                        </tr>
+
+
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <br>
-
-    <ul>
-        {% for showing in movie.list %}
-        <li>{{showing.language}} : <a href="{% url 'movies:buy_tickets' showing.id %}">
-                {{showing.date|date:"l d F Y"}} à {{showing.time}}</a></li>
-        {% endfor %}
-    </ul>
-    <hr>
 </div>
-{% endfor %}
-
-{% else %}
-<p>Aucune projection n’est planifiée.</p>
-{% endif %}
-
 
 
 {% endblock %}
