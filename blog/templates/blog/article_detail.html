@@ -2,11 +2,51 @@
 {% block title %}{{article.title|title}}{% endblock %}
 {% block content %}
 <h1>{{ article.title|title }}</h1>
+<div class="row gx-5">
+    <div class="col-8">
+        <p class="article-summary">Publié par <strong>Philippe
+                Lemaire</strong> le {{article.pub_date|date}}</p>
+
+        <p>{{article.formatted_markdown|safe}}</p>
+    </div>
+    <div class="col-4">
+        <div class="p-3">
+            <h2>Archives</h2>
+            <h3>Par dates</h3>
+            {% regroup article_list by pub_date.year as year_list %}
+
+            <ul>
+                {% for year in year_list %}
+                <li><a href="{% url 'blog:year_archive' year.grouper %}">{{ year.grouper }}</a>
+                    {% regroup year.list by pub_date.month as month_list %}
+                    <ul>
+                        {% for month in month_list %}
+                        <li><a href="{% url 'blog:month_archive' year.grouper month.grouper %}">
+                                {{month.list.0.pub_date|date:'F' }}
+                                ({{month.list|length }})</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <h3>Par étiquettes</h3>
+            <ul>
+                {% for tag in tags %}
+                <li><a href="{% url 'blog:tag_detail' tag.slug %}">{{tag.name}}
+                        ({{tag.articles.all|length}})</a>
+                </li>
+
+                {% endfor %}
+            </ul>
 
 
-<p>{{article.formatted_markdown|safe}}</p>
+        </div>
+    </div>
 
-<p>Publié le : {{article.pub_date|date}}.</p>
+</div>
+
+
 
 🏷️
 {% for tag in article.tags.all %}

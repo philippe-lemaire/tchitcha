@@ -27,12 +27,27 @@ class IndexView(generic.ListView):
 class ArticleDetailView(generic.DetailView):
     model = Article
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Tag.objects.all()
+        context["article_list"] = (
+            Article.objects.order_by("-pub_date")
+            .filter(pub_date__lte=timezone.now())
+            .filter(published=True)
+        )
+        return context
+
 
 class ArticleYearArchiveView(generic.dates.YearArchiveView):
     queryset = Article.objects.all()
     date_field = "pub_date"
     make_object_list = True
     allow_future = False
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Tag.objects.all()
+        return context
 
 
 class ArticleMonthArchiveView(generic.dates.MonthArchiveView):
@@ -41,6 +56,11 @@ class ArticleMonthArchiveView(generic.dates.MonthArchiveView):
     make_object_list = True
     allow_future = False
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tags"] = Tag.objects.all()
+        return context
 
-class TagDetailView(generic.DetailView):
+
+class TagDetailView(ArticleDetailView):
     model = Tag
