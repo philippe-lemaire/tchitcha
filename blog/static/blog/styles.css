@@ -16,3 +16,23 @@ blockquote {
   blockquote p {
     display: inline;
   }
+
+  h2, a { 
+    text-decoration: none;
+  }
+
+  .article-summary {
+    color: #859D94;
+    font-size:14px;
+    line-height:1.3;
+  }
+
+  .link-readmore {
+    text-decoration: none;
+    font-family: "Roboto", Corbel, Avenir, "Lucida Grande", "Lucida Sans", sans-serif;
+    font-size: 13px;
+    display: inline-block;
+    margin: 10px 0;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
