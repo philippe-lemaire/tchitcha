@@ -17,4 +17,5 @@ urlpatterns = [
         name="month_archive",
     ),
     path("tag/<slug:slug>/", views.TagDetailView.as_view(), name="tag_detail"),
+    path("feed/", views.LatestEntriesFeed(), name="feed"),
 ]
